@@ -1,6 +1,11 @@
-import express from "express";
-import { users } from "./MOCK_DATA.js";
+const express = require("express");
+const users = require("./MOCK_DATA.json");
+const fs = require("fs");
+
 const app = express();
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json({ extended: true }));
 
 app.get("/users", (req, res) => {
   const html = `
@@ -11,23 +16,51 @@ app.get("/users", (req, res) => {
   res.send(html);
 });
 
-app.get("/api/users", (req, res) => {
-  return res.json(users);
-});
+app
+  .route("/api/users")
+  .get((req, res) => {
+    return res.json(users);
+  })
+  .post((req, res) => {
+    const body = req.body;
+    users.push({ id: users.length + 1, ...body });
+    fs.writeFile("./MOCK_DATA.json", JSON.stringify(users), (err, data) => {
+      return res.json({ status: "success", id: users.length });
+    });
+  });
 
-app.get("/api/users/:id", (req, res) => {
-  const id = Number(req.params.id);
-  const user = users.find((user) => user.id === id);
-  return res.json(user);
-});
+app
+  .route("/api/users/:id")
+  .get((req, res) => {
+    const id = Number(req.params.id);
+    const user = users.find((user) => user.id === id);
+    return res.json(user);
+  })
+  .patch((req, res) => {
+    const body = req.body;
+    const id = Number(req.params.id);
 
-app.post("/api/users", (req, res) => {
-  return res.json({ status: pending });
-});
+    const updatedUsers = users.map((user) =>
+      user.id === id ? { id: user.id, ...body } : user
+    );
 
-app.patch("/api/users/:id", (req, res) => {
-  return res.json({ status: pending });
-});
+    fs.writeFile(
+      "./MOCK_DATA.json",
+      JSON.stringify(updatedUsers),
+      (err, data) => {
+        return res.json({ status: "success" });
+      }
+    );
+
+    return res.json({ status: "pending" });
+  })
+  .delete((req, res) => {
+    const id = Number(req.params.id);
+    const user = users.filter((user) => user.id !== id);
+    fs.writeFile("./MOCK_DATA.json", JSON.stringify(user), (err, data) => {
+      return res.json({ status: "success", id: users.length });
+    });
+  });
 
 app.listen(8000, () => {
   console.log("Server started on 8000");

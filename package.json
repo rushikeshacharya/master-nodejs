@@ -6,7 +6,7 @@
   "repository": "https://github.com/rushikeshacharya/master-nodejs.git",
   "author": "Rushikesh Acharya",
   "license": "MIT",
-  "type": "module",
+  "type": "commonjs",
   "private": false,
   "dependencies": {
     "express": "^4.19.2",
