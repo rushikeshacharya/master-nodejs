@@ -16,6 +16,15 @@ app.get("/users", (req, res) => {
   res.send(html);
 });
 
+app.use((req, res, next) => {
+  fs.appendFile(
+    "log.txt",
+    `\n ${Date.now()}: ${req.method}: ${req.path}`,
+    (err, data) => {
+      next();
+    }
+  );
+});
 app
   .route("/api/users")
   .get((req, res) => {
