@@ -1,0 +1,18 @@
+{
+  "name": "master-nodejs",
+  "version": "1.0.0",
+  "description": "Proeject 01",
+  "main": "index.js",
+  "repository": "https://github.com/rushikeshacharya/master-nodejs.git",
+  "author": "Rushikesh Acharya",
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "dependencies": {
+    "express": "^4.19.2",
+    "nodemon": "^3.1.4"
+  },
+  "scripts": {
+    "start": "nodemon index.js"
+  }
+}
