@@ -4,11 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
   "author": "Rushikesh Acharya",
   "license": "ISC",
   "dependencies": {
-    "http": "^0.0.1-security"
+    "http": "^0.0.1-security",
+    "url": "^0.11.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
   }
 }
