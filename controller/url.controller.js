@@ -10,6 +10,7 @@ export const handleGnerateNewURL = async (req, res) => {
     shortId: shortId,
     redirectURL: body.url,
     visitedhistory: [],
+    createdBy: req.user._id
   });
   return res.render("home", { id: shortId });
 };
