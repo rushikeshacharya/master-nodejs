@@ -3,6 +3,6 @@ import { handleGnerateNewURL,handleRedirectURL,handleURLAnalytics } from "../con
 export const router = express.Router();
 
 router.post("/", handleGnerateNewURL);
-router.post("/:shortId", handleRedirectURL);
+router.get("/:shortId", handleRedirectURL);
 router.get("/analytics/:shortId", handleURLAnalytics);
 

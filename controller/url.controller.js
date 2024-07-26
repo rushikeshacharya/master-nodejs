@@ -2,6 +2,7 @@ import { nanoid } from "nanoid";
 import { URL } from "../models/url.schema.js";
 
 export const handleGnerateNewURL = async (req, res) => {
+  console.log("---------->");
   const body = req.body;
   if (!body.url) return res.status(400).json({ error: "URL is required" });
   const shortId = nanoid(8);
@@ -10,7 +11,7 @@ export const handleGnerateNewURL = async (req, res) => {
     redirectURL: body.url,
     visitedhistory: [],
   });
-  return res.json({ id: shortId });
+  return res.render("home", { id: shortId });
 };
 export const handleURLAnalytics = async (req, res) => {
   const shortId = req.params.shortId;
