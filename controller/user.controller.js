@@ -14,15 +14,14 @@ const handleUserLogin = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email, password });
   console.log("IUser", user);
+  console.log(req.header);
   if (!user)
     return res.render("login", {
       error: "Invalid Username or Password",
     });
 
   const token = setUser(user);
-  res.cookie("uid", token);
-
-  return res.redirect("/");
+  return res.json({ token });
 };
 
 export { handleUserSignup, handleUserLogin };
